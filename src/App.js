@@ -35,6 +35,15 @@ const App = () => {
 
   return (
     <MainWrapper>
+      <div className='title'>
+        {isLoading ? (
+          <h2>Loading</h2>
+        ) : (
+          <h1>
+            <i>Pagination</i>
+          </h1>
+        )}
+      </div>
       <Wrapper>
         {data.map((follower) => {
           const { html_url, avatar_url, login, id } = follower
@@ -70,6 +79,20 @@ const App = () => {
 
 const MainWrapper = styled.div`
   height: 95vh;
+  .title {
+    width: 90vw;
+    max-width: 1170px;
+    margin: 5rem auto;
+    text-align: center;
+    h1 {
+      background: var(--blue);
+      width: 40%;
+      color: var(--white);
+      margin: 0 auto;
+      border-radius: var(--radius);
+      padding: 1rem 3rem;
+    }
+  }
 `
 
 const Buttons = styled.section`
@@ -81,17 +104,23 @@ const Buttons = styled.section`
   align-items: center;
   button {
     font-size: 1.2rem;
-    padding: 0.2rem 0.4rem;
+    padding: 0.4rem 0.8rem;
     margin: 0 0.5rem;
     background: var(--blue);
-    border: none;
+    border: 2px solid var(--blue);
     color: var(--white);
+    &:hover {
+      cursor: pointer;
+      background: var(--white);
+      color: var(--blue);
+      transition: 0.1s;
+    }
   }
 `
 
 const Wrapper = styled.section`
   width: 90vw;
-  height: 80vh;
+  height: 70vh;
   max-width: 1170px;
   margin: 5rem auto;
   display: grid;
@@ -99,14 +128,26 @@ const Wrapper = styled.section`
   gap: 2rem;
   article {
     position: relative;
+    height: 260px;
     img {
       width: 100%;
+      height: 100%;
+      object-fit: cover;
       border: 3px solid black;
       border-radius: var(--radius);
     }
     h3 {
+      width: 90%;
+      text-align: end;
       color: var(--blue);
-      text-align: center;
+      margin-bottom: 0;
+      position: absolute;
+      bottom: -5%;
+      right: -5%;
+      background: orange;
+      color: black;
+      padding: 0.3rem 0.6rem;
+      border-radius: 3px;
     }
   }
 `
