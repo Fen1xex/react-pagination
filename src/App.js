@@ -1,21 +1,27 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useGlobalContext } from './context'
 import styled from 'styled-components'
 
 const App = () => {
   const { followers, isLoading } = useGlobalContext()
-  if (isLoading) {
-    return <h3>Loading...</h3>
-  }
+  const [data, setData] = useState([])
+  const [page, setPage] = useState(1)
+
+  useEffect(() => {
+    if (isLoading) return
+    setData(followers[page])
+  }, [isLoading])
+
   return (
     <Wrapper>
-      {followers.map((follower, index) => {
+      {data.map((follower) => {
+        const { html_url, avatar_url, login, id } = follower
         return (
-          <article key={index}>
-            <a href={follower.html_url}>
-              <img src={follower.avatar_url} alt={follower.login} />
+          <article key={id}>
+            <a href={html_url}>
+              <img src={avatar_url} alt={login} />
             </a>
-            <h3>{follower.login}</h3>
+            <h3>{login}</h3>
           </article>
         )
       })}

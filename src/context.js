@@ -6,24 +6,24 @@ const AppContext = React.createContext()
 const url = 'https://api.github.com/users/bradtraversy/followers?per_page=100'
 
 const AppProvider = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [followers, setFollowers] = useState([])
 
   const fetchFollowers = async () => {
-    setIsLoading(true)
+    // setIsLoading(true)
     await axios(url)
       .then(({ data }) => {
         setFollowers(pagination(data))
+        setIsLoading(false)
       })
       .catch((error) => console.log(error))
-    setIsLoading(false)
   }
   useEffect(() => {
     fetchFollowers()
   }, [])
 
   return (
-    <AppContext.Provider value={{ followers, isLoading }}>
+    <AppContext.Provider value={{ followers, isLoading, setFollowers }}>
       {children}
     </AppContext.Provider>
   )
