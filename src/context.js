@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
+import { pagination } from './pagination'
 import axios from 'axios'
 
 const AppContext = React.createContext()
@@ -12,7 +13,7 @@ const AppProvider = ({ children }) => {
     setIsLoading(true)
     await axios(url)
       .then(({ data }) => {
-        setFollowers(data)
+        setFollowers(pagination(data))
       })
       .catch((error) => console.log(error))
     setIsLoading(false)
