@@ -10,24 +10,52 @@ const App = () => {
   useEffect(() => {
     if (isLoading) return
     setData(followers[page])
-  }, [isLoading])
-
+  }, [isLoading, page])
+  console.log(followers)
   return (
-    <Wrapper>
-      {data.map((follower) => {
-        const { html_url, avatar_url, login, id } = follower
-        return (
-          <article key={id}>
-            <a href={html_url}>
-              <img src={avatar_url} alt={login} />
-            </a>
-            <h3>{login}</h3>
-          </article>
-        )
-      })}
-    </Wrapper>
+    <div>
+      <Wrapper>
+        {data.map((follower) => {
+          const { html_url, avatar_url, login, id } = follower
+          return (
+            <article key={id}>
+              <a href={html_url}>
+                <img src={avatar_url} alt={login} />
+              </a>
+              <h3>{login}</h3>
+            </article>
+          )
+        })}
+      </Wrapper>
+      <Buttons>
+        {followers.map((item, index) => {
+          return (
+            <button key={index} onClick={() => setPage(index)}>
+              {index + 1}
+            </button>
+          )
+        })}
+      </Buttons>
+    </div>
   )
 }
+
+const Buttons = styled.section`
+  width: 90vw;
+  max-width: 1170px;
+  margin: 5rem auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  button {
+    font-size: 1.2rem;
+    padding: 0.2rem 0.4rem;
+    margin: 0 0.5rem;
+    background: var(--blue);
+    border: none;
+    color: var(--white);
+  }
+`
 
 const Wrapper = styled.section`
   width: 90vw;
