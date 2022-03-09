@@ -64,9 +64,11 @@ const App = () => {
         </button>
         {followers.map((item, index) => {
           return (
-            <button key={index} onClick={() => setPage(index)}>
-              {index + 1}
-            </button>
+            <div className='buttons'>
+              <button key={index} onClick={() => setPage(index)}>
+                {index + 1}
+              </button>
+            </div>
           )
         })}
         <button className='next' onClick={() => handlePage('next')}>
@@ -86,7 +88,7 @@ const MainWrapper = styled.div`
     text-align: center;
     h1 {
       background: var(--blue);
-      width: 40%;
+      width: 25rem;
       color: var(--white);
       margin: 0 auto;
       border-radius: var(--radius);
@@ -96,12 +98,20 @@ const MainWrapper = styled.div`
 `
 
 const Buttons = styled.section`
+  display: none;
+
   width: 90vw;
   max-width: 1170px;
   margin: 5rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  .buttons {
+    display: none;
+    @media screen and (min-width: 900px) {
+      display: block;
+    }
+  }
   button {
     font-size: 1.2rem;
     padding: 0.4rem 0.8rem;
@@ -120,7 +130,7 @@ const Buttons = styled.section`
 
 const Wrapper = styled.section`
   width: 90vw;
-  height: 70vh;
+  /* height: 70vh; */
   max-width: 1170px;
   margin: 5rem auto;
   display: grid;
