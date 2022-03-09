@@ -11,9 +11,30 @@ const App = () => {
     if (isLoading) return
     setData(followers[page])
   }, [isLoading, page])
-  console.log(followers)
+
+  const handlePage = (btn) => {
+    if (btn === 'next') {
+      setPage((currentPage) => {
+        let nextPage = currentPage + 1
+        if (nextPage > followers.length - 1) {
+          nextPage = 0
+        }
+        return nextPage
+      })
+    }
+    if (btn === 'prev') {
+      setPage((currentPage) => {
+        let prevPage = currentPage - 1
+        if (prevPage < 0) {
+          prevPage = followers.length - 1
+        }
+        return prevPage
+      })
+    }
+  }
+
   return (
-    <div>
+    <MainWrapper>
       <Wrapper>
         {data.map((follower) => {
           const { html_url, avatar_url, login, id } = follower
@@ -27,7 +48,11 @@ const App = () => {
           )
         })}
       </Wrapper>
+
       <Buttons>
+        <button className='prev' onClick={() => handlePage('prev')}>
+          prev
+        </button>
         {followers.map((item, index) => {
           return (
             <button key={index} onClick={() => setPage(index)}>
@@ -35,10 +60,17 @@ const App = () => {
             </button>
           )
         })}
+        <button className='next' onClick={() => handlePage('next')}>
+          next
+        </button>
       </Buttons>
-    </div>
+    </MainWrapper>
   )
 }
+
+const MainWrapper = styled.div`
+  height: 95vh;
+`
 
 const Buttons = styled.section`
   width: 90vw;
@@ -59,6 +91,7 @@ const Buttons = styled.section`
 
 const Wrapper = styled.section`
   width: 90vw;
+  height: 80vh;
   max-width: 1170px;
   margin: 5rem auto;
   display: grid;
